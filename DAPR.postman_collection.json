@@ -1,0 +1,133 @@
+{
+	"info": {
+		"_postman_id": "4539f8dd-41f8-4f61-9b09-ff034444e394",
+		"name": "DAPR",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6488729"
+	},
+	"item": [
+		{
+			"name": "checking service",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "dapr-app-id",
+						"value": "myapp",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{dapr_client}}/v1.0/invoke/myapp/method/test",
+					"host": [
+						"{{dapr_client}}"
+					],
+					"path": [
+						"v1.0",
+						"invoke",
+						"myapp",
+						"method",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "checking service Copy",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "dapr-app-id",
+						"value": "service1",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{service_1}}/method/test",
+					"host": [
+						"{{service_1}}"
+					],
+					"path": [
+						"method",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "dapr none app endpoint",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3500/v1.0/invoke/http://localhost:4000/method/test",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"v1.0",
+						"invoke",
+						"http:",
+						"",
+						"localhost:4000",
+						"method",
+						"test"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "service_1",
+			"value": "http://localhost:4000",
+			"type": "string"
+		},
+		{
+			"key": "service_2",
+			"value": "http://localhost:40001",
+			"type": "string"
+		},
+		{
+			"key": "dapr_client",
+			"value": "http://localhost:3500/",
+			"type": "string"
+		}
+	]
+}
