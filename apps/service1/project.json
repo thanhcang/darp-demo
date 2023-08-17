@@ -1,7 +1,7 @@
 {
-  "name": "project",
+  "name": "service1",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/project/src",
+  "sourceRoot": "apps/service1/src",
   "projectType": "application",
   "targets": {
     "build": {
@@ -10,12 +10,12 @@
       "defaultConfiguration": "production",
       "options": {
         "platform": "node",
-        "outputPath": "dist/apps/project",
+        "outputPath": "dist/apps/service1",
         "format": ["cjs"],
         "bundle": false,
-        "main": "apps/project/src/main.ts",
-        "tsConfig": "apps/project/tsconfig.app.json",
-        "assets": ["apps/project/src/assets"],
+        "main": "apps/service1/src/main.ts",
+        "tsConfig": "apps/service1/tsconfig.app.json",
+        "assets": ["apps/service1/src/assets"],
         "generatePackageJson": true,
         "esbuildOptions": {
           "sourcemap": true,
@@ -27,7 +27,6 @@
       "configurations": {
         "development": {},
         "production": {
-          "generateLockfile": true,
           "esbuildOptions": {
             "sourcemap": false,
             "outExtension": {
@@ -41,14 +40,14 @@
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "project:build"
+        "buildTarget": "service1:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "project:build:development"
+          "buildTarget": "service1:build:development"
         },
         "production": {
-          "buildTarget": "project:build:production"
+          "buildTarget": "service1:build:production"
         }
       }
     },
@@ -56,14 +55,14 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/project/**/*.ts"]
+        "lintFilePatterns": ["apps/service1/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/project/jest.config.ts",
+        "jestConfig": "apps/service1/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {
@@ -72,10 +71,6 @@
           "codeCoverage": true
         }
       }
-    },
-    "docker-build": {
-      "dependsOn": ["build"],
-      "command": "docker build -f apps/project/Dockerfile . -t project"
     }
   },
   "tags": []
