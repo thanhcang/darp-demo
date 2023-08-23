@@ -42,3 +42,8 @@
       docker exec -it dapr_redis redis-cli # connect to docker container
       key* # view all the states 
     ```
+5. Some utils command 
+```bash
+  - lsof -i :4000 # check what is service using the specified port
+  - kill 82044 # Kill pid
+```

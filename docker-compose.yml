@@ -1,0 +1,48 @@
+version: '3.7'
+
+services:
+  one:
+    container_name: node-service-one
+    image: node-service-one
+    build:
+      args:
+        SERVICE: secrets
+      dockerfile: apps/service1/Dockerfile
+      context: .
+    env_file:
+      - .env
+    ports:
+      - 4000:4000
+  two:
+    container_name: node-service-two
+    image: node-service-two
+    build:
+      args:
+        SERVICE: secrets
+      dockerfile: apps/service2/Dockerfile
+      context: .
+    env_file:
+      - .env
+    network_mode: service:one
+
+  service-one-daprd:
+    image: daprio/daprd:1.2.0
+    command: [ "./daprd","-app-id","app1","-app-port","4000","-placement-host-address","placement:50006","-components-path","/components" ]
+    volumes:
+      - ./components:/components
+    depends_on:
+      - one
+    network_mode: service:one
+
+  service-two-daprd:
+    image: daprio/daprd:1.2.0
+    command: [ "./daprd","-app-id","app2","-app-port","4000","-placement-host-address","placement:50006","-components-path","/components" ]
+    volumes:
+      - ./components:/components
+    depends_on:
+      - two
+    network_mode: service:one
+
+  placement:
+    image: daprio/dapr:1.2.0
+    command: [ "./placement","-port","50006" ]
