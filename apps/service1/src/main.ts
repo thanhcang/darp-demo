@@ -23,7 +23,8 @@ app.listen(port, host, () => {
 
 app.get('/test/service', async (req: Request, res: Response) => {
   try {
-// application call to dapr sidecar
+    // application call to dapr sidecar
+    // with specified dapr port and host
     const daprHost = "127.0.0.1"; // Dapr Sidecar Host
     const daprPort = "3501"; // service 02
 
@@ -42,5 +43,28 @@ app.get('/test/service', async (req: Request, res: Response) => {
       msg : err.message
     })
   }
+});
 
+app.get('/test/inextia', async (req: Request, res: Response) => {
+  try {
+    // application call to dapr sidecar
+    // with specified dapr port and host
+    const daprHost = "localhost"; // Dapr Sidecar Host
+    const daprPort = "3502"; // service 02
+
+    const client = new DaprClient({daprHost, daprPort});
+
+    const serviceAppId = "service-inextia";
+    const serviceMethod = "test/inextia";
+
+    const data = await client.invoker.invoke(serviceAppId, serviceMethod, HttpMethod.GET);
+    return res.json({
+      data : data
+    })
+  } catch (err) {
+    console.log(err)
+    return  res.json({
+      msg : err.message
+    })
+  }
 });
