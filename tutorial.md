@@ -119,3 +119,10 @@
         --log-as-json           Log output in JSON format
         --runtime-path string   The path to the dapr runtime installation directory
    ```
+7. Pub-sub
+   - Rabbit mq
+   ```bash
+    docker pull rabbitmq
+    docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq
+   
+   ```

@@ -7,7 +7,7 @@ const port = process.env.PORT_2 ? Number(process.env.PORT_2) : 3000;
 const app = express();
 
 app.get('/', (req, res) => {
-  res.send({ message: 'Hello API- 2' });
+  res.send({ message: 'This is a service 2' });
 });
 
 app.listen(port, host, () => {
@@ -18,6 +18,13 @@ app.get('/listeners', async (req: Request, res: Response) => {
   // application call to dapr sidecar
   return res.json({
     msg : 'this is listeners'
+  })
+});
+
+app.get('/listeners/2', async (req: Request, res: Response) => {
+  // application call to dapr sidecar
+  return res.json({
+    msg : 'this is listeners 2'
   })
 });
 

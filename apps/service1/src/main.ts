@@ -9,7 +9,7 @@ const app = express();
 
 
 app.get('/', (req, res) => {
-  res.send({ message: 'Hello API' });
+  res.send({ message: 'This is a service one' });
 });
 
 app.get('/test', (req, res) => {
@@ -31,7 +31,7 @@ app.get('/test/service', async (req: Request, res: Response) => {
     const client = new DaprClient({daprHost, daprPort});
 
     const serviceAppId = "service_two";
-    const serviceMethod = "listeners";
+    const serviceMethod = "listeners/2";
 
     const data = await client.invoker.invoke(serviceAppId, serviceMethod, HttpMethod.GET);
     return res.json({
@@ -56,6 +56,54 @@ app.get('/test/inextia', async (req: Request, res: Response) => {
 
     const serviceAppId = "service-inextia";
     const serviceMethod = "test/inextia";
+
+    const data = await client.invoker.invoke(serviceAppId, serviceMethod, HttpMethod.GET);
+    return res.json({
+      data : data
+    })
+  } catch (err) {
+    console.log(err)
+    return  res.json({
+      msg : err.message
+    })
+  }
+});
+
+app.get('/test/upkeep', async (req: Request, res: Response) => {
+  try {
+    // application call to dapr sidecar
+    // with specified dapr port and host
+    const daprHost = "localhost"; // Dapr Sidecar Host
+    const daprPort = "3503"; // service 02
+
+    const client = new DaprClient({daprHost, daprPort});
+
+    const serviceAppId = "service-upkeep";
+    const serviceMethod = "test/upkeep";
+
+    const data = await client.invoker.invoke(serviceAppId, serviceMethod, HttpMethod.GET);
+    return res.json({
+      data : data
+    })
+  } catch (err) {
+    console.log(err)
+    return  res.json({
+      msg : err.message
+    })
+  }
+});
+
+app.get('/test/inextia-call-servcie', async (req: Request, res: Response) => {
+  try {
+    // application call to dapr sidecar
+    // with specified dapr port and host
+    const daprHost = "localhost"; // Dapr Sidecar Host
+    const daprPort = "3502"; // service 02
+
+    const client = new DaprClient({daprHost, daprPort});
+
+    const serviceAppId = "service-inextia";
+    const serviceMethod = "test/service";
 
     const data = await client.invoker.invoke(serviceAppId, serviceMethod, HttpMethod.GET);
     return res.json({
