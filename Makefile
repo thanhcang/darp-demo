@@ -23,4 +23,9 @@ start.pub:
 
 .PHONY: start.sub.1
 start.sub.1:
-	dapr run --app-id subcriber_1 --app-port 4003  --app-channel-address localhost --dapr-http-port 3505 nx serve subscriber-1
+	dapr run --app-id subscriber_1 --app-port 4003  --app-channel-address localhost --dapr-http-port 3505 nx serve subscriber-1
+
+.PHONY: start.sub.2
+start.sub.2:
+	dapr run --app-id subscriber_2 --app-port 4004  --app-channel-address localhost --dapr-http-port 3506 nx serve subscriber-2
+

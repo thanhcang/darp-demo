@@ -1,4 +1,5 @@
 import express from 'express';
+import bodyParser from "body-parser";
 
 const host = process.env.HOST ?? 'localhost';
 const port = process.env.SUB_1_PORT ? Number(process.env.SUB_1_PORT) : 3000;
@@ -6,6 +7,7 @@ const port = process.env.SUB_1_PORT ? Number(process.env.SUB_1_PORT) : 3000;
 const app = express();
 
 app.use(express.json({ limit: '10mb' }), express.urlencoded({ limit: '10mb', extended: true }));
+app.use(bodyParser.json({ type: 'application/*+json' }));
 
 app.get('/', (req, res) => {
   res.send({ message: 'This is subscriber 01' });
@@ -51,11 +53,9 @@ app.post('/orders', (req, res) => {
 
 app.post('/products', (req, res) => {
   console.log(req.body);
-  console.log(req.path);
   res.sendStatus(200);
 });
 
 app.listen(port, host, () => {
   console.log(`[ ready ] http://${host}:${port}`);
-  // subscribeTopic()
 });

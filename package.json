@@ -7,6 +7,7 @@
   "dependencies": {
     "@dapr/dapr": "^3.1.2",
     "axios": "^1.0.0",
+    "body-parser": "^1.20.2",
     "express": "~4.18.1",
     "tslib": "^2.3.0"
   },
